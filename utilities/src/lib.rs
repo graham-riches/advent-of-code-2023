@@ -42,3 +42,18 @@ where
      .flat_map(|x| x.parse::<T>().ok())
      .next_tuple()
 }
+
+
+pub fn parse_delimited_string<T>(s: &str, delimiter: &str) -> Option<Vec<T>>
+where
+    T: std::str::FromStr,    
+{
+    let items = s.trim_start().split(delimiter)
+      .flat_map(|x| x.parse::<T>().ok())
+      .collect::<Vec<_>>();
+    if items.len() > 0 {
+        Some(items)
+    } else {
+        None
+    }
+}
